@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from 'react';
-import { useLanguage, useTranslations } from './useLanguage';
-import { TranslationData } from '../types/types';
+import { useLanguage, useTranslations } from '../hooks/useLanguage';
+import { TranslationData, LanguageSwitcherOptions } from '../types/types';
 
 // Language Switcher Component
 export interface LanguageSwitcherProps {
@@ -36,6 +36,8 @@ export function LanguageSwitcher({
     }
   };
 
+  const currentLang = availableLanguages.find(lang => lang.code === currentLanguage);
+
   // Select variant
   if (variant === 'select') {
     return (
@@ -45,7 +47,7 @@ export function LanguageSwitcher({
         onChange={(e) => handleLanguageChange(e.target.value)}
         dir={direction}
       >
-        {availableLanguages.map((lang: any) => (
+        {availableLanguages.map((lang) => (
           <option key={lang.code} value={lang.code}>
             {showFlags && lang.flag} {showNames && lang.name} {showCodes && `(${lang.code})`}
           </option>
@@ -64,8 +66,8 @@ export function LanguageSwitcher({
           aria-expanded={isDropdownOpen}
           aria-haspopup="true"
         >
-          {showFlags && availableLanguages.find((l: any) => l.code === currentLanguage)?.flag}
-          {showNames && availableLanguages.find((l: any) => l.code === currentLanguage)?.name}
+          {showFlags && currentLang?.flag}
+          {showNames && currentLang?.name}
           {showCodes && ` (${currentLanguage})`}
           <svg 
             className={`ml-2 h-4 w-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
@@ -79,7 +81,7 @@ export function LanguageSwitcher({
         
         {isDropdownOpen && (
           <div className="dropdown-menu">
-            {availableLanguages.map((lang: any) => (
+            {availableLanguages.map((lang) => (
               <button
                 key={lang.code}
                 className={`dropdown-item ${lang.code === currentLanguage ? 'active' : ''}`}
@@ -97,7 +99,7 @@ export function LanguageSwitcher({
   // Buttons variant
   return (
     <div className={`language-buttons ${className}`} dir={direction}>
-      {availableLanguages.map((lang: any) => (
+      {availableLanguages.map((lang) => (
         <button
           key={lang.code}
           onClick={() => handleLanguageChange(lang.code)}
@@ -159,7 +161,7 @@ export function RTLDirection({ children, className = '' }: RTLDirectionProps) {
 // Language Context Provider
 export interface LanguageProviderProps {
   children: ReactNode;
-  options: any; // LanguageSwitcherOptions
+  options: LanguageSwitcherOptions;
   translations?: Record<string, TranslationData>;
 }
 

@@ -38,9 +38,7 @@ export class LanguageSwitcher implements LanguageSwitcherInstance {
       this.loadPersistedLanguage();
     }
 
-    if (this.options.debug) {
-      console.log('LanguageSwitcher initialized with options:', this.options);
-    }
+    // Debug logging removed for production
   }
 
   /**
@@ -70,9 +68,7 @@ export class LanguageSwitcher implements LanguageSwitcherInstance {
       this.onLanguageChange(language);
     }
 
-    if (this.options.debug) {
-      console.log(`Language changed to: ${language}`);
-    }
+    // Debug logging removed for production
   }
 
   /**
@@ -82,9 +78,7 @@ export class LanguageSwitcher implements LanguageSwitcherInstance {
     const translation = this.getTranslationByKey(key);
     
     if (!translation) {
-      if (this.options.debug) {
-        console.warn(`Translation key '${key}' not found for language '${this.currentLanguage}'`);
-      }
+      // Debug logging removed for production
       return key;
     }
 
@@ -107,9 +101,7 @@ export class LanguageSwitcher implements LanguageSwitcherInstance {
       this.availableLanguages.push(config);
     }
 
-    if (this.options.debug) {
-      console.log(`Language '${language}' added/updated:`, config);
-    }
+    // Debug logging removed for production
   }
 
   /**
@@ -121,9 +113,7 @@ export class LanguageSwitcher implements LanguageSwitcherInstance {
       ...translations
     };
 
-    if (this.options.debug) {
-      console.log(`Translations added for language '${language}':`, translations);
-    }
+    // Debug logging removed for production
   }
 
   /**
@@ -142,9 +132,7 @@ export class LanguageSwitcher implements LanguageSwitcherInstance {
       this.setLanguage(this.options.defaultLanguage);
     }
 
-    if (this.options.debug) {
-      console.log(`Language '${language}' removed`);
-    }
+    // Debug logging removed for production
   }
 
   /**
@@ -268,7 +256,7 @@ export class LanguageSwitcher implements LanguageSwitcherInstance {
       }
     } catch (error) {
       if (this.options.debug) {
-        console.warn('Failed to persist language:', error);
+        // Error logging removed for production
       }
     }
   }
@@ -283,7 +271,7 @@ export class LanguageSwitcher implements LanguageSwitcherInstance {
       }
     } catch (error) {
       if (this.options.debug) {
-        console.warn('Failed to load persisted language:', error);
+        // Error logging removed for production
       }
     }
   }

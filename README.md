@@ -8,8 +8,9 @@ A lightweight, flexible, and production-ready package for dynamic language switc
 
 ## ✨ Features
 
-- 🌍 **Multi-language Support**: English, Spanish, French, German, Italian, Portuguese, Russian, Japanese, Korean, Arabic, Hebrew, Persian, Urdu, and more
+- 🌍 **Multi-language Support**: 20+ languages including English, Spanish, French, German, Italian, Portuguese, Russian, Japanese, Korean, Arabic, Hebrew, Persian, Urdu, Hindi, Bengali, Thai, Vietnamese, Turkish, Dutch, and more
 - 🇨🇳 **Chinese Language Support**: Both Simplified (zh-CN) and Traditional (zh-TW) Chinese
+- 🇳🇵 **Nepali Language Support**: Full Nepali language support with Devanagari script
 - 🔄 **RTL Support**: Full Right-to-Left language support for Arabic, Hebrew, Persian, Urdu, and more
 - ⚛️ **React Integration**: Hooks, components, and context providers for seamless React integration
 - 🚀 **Next.js Support**: Server-side rendering, static generation, and middleware integration
@@ -54,6 +55,12 @@ languageSwitcher.addLanguage("zh-CN", {
   flag: "🇨🇳",
 });
 
+languageSwitcher.addLanguage("np", {
+  code: "np",
+  name: "नेपाली",
+  flag: "🇳🇵",
+});
+
 // Add translations
 languageSwitcher.addTranslations("en", {
   welcome: "Welcome",
@@ -63,6 +70,11 @@ languageSwitcher.addTranslations("en", {
 languageSwitcher.addTranslations("zh-CN", {
   welcome: "欢迎",
   hello: "你好，{name}！",
+});
+
+languageSwitcher.addTranslations("np", {
+  welcome: "स्वागत छ",
+  hello: "नमस्ते, {name}!",
 });
 
 // Switch language
@@ -116,6 +128,7 @@ function MyComponent() {
     <div>
       <h1>{t("welcome")}</h1>
       <button onClick={() => switchLanguage("zh-CN")}>Switch to Chinese</button>
+      <button onClick={() => switchLanguage("np")}>Switch to Nepali</button>
     </div>
   );
 }
@@ -179,34 +192,8 @@ export const getStaticProps = createLocalizedPage(
       },
     };
   },
-  ["en", "es", "zh-CN", "ar"]
+  ["en", "es", "zh-CN", "np", "ar"]
 );
-```
-
-## 🏗️ Project Structure
-
-```
-src/
-├── core/                 # Core language switcher logic
-│   └── language-switcher.ts
-├── types/               # TypeScript type definitions
-│   └── types.ts
-├── utils/               # Utility functions
-│   └── utils.ts
-├── hooks/               # React hooks and components
-│   ├── useLanguage.ts
-│   └── components.tsx
-├── adapters/            # Framework adapters (Next.js, etc.)
-│   └── index.ts
-└── index.ts             # Main entry point
-
-examples/
-├── vanilla/             # Vanilla JavaScript/TypeScript examples
-├── react/               # React integration examples
-└── nextjs/              # Next.js integration examples
-
-tests/                   # Test files
-dist/                    # Build output
 ```
 
 ## 🌍 Supported Languages
@@ -219,30 +206,62 @@ dist/                    # Build output
 - German (de)
 - Italian (it)
 - Portuguese (pt)
+- Russian (ru)
+- Dutch (nl)
 
 ### Asian Languages
 
 - Japanese (ja)
 - Korean (ko)
-- **Simplified Chinese (zh-CN)**
-- **Traditional Chinese (zh-TW)**
+- Simplified Chinese (zh-CN)
+- Traditional Chinese (zh-TW)
+- Nepali (np)
+- Hindi (hi)
+- Bengali (bn)
+- Thai (th)
+- Vietnamese (vi)
+- Turkish (tr)
 
 ### RTL Languages
 
-- **Arabic (ar)**
-- **Hebrew (he)**
-- **Persian (fa)**
-- **Urdu (ur)**
-- **Pashto (ps)**
-- **Sindhi (sd)**
-- **Yiddish (yi)**
-- **Kurdish (ku)**
-- **Azerbaijani (az)**
-- **Divehi (dv)**
-- **Kashmiri (ks)**
-- **Punjabi (pa)**
-- **Tajik (tg)**
-- **Uzbek (uz)**
+- Arabic (ar)
+- Hebrew (he)
+- Persian (fa)
+- Urdu (ur)
+- Pashto (ps)
+- Sindhi (sd)
+- Yiddish (yi)
+- Kurdish (ku)
+- Divehi (dv)
+- Kashmiri (ks)
+- Punjabi (pa)
+- Tajik (tg)
+- Uzbek (uz)
+
+## 🏗️ Project Structure
+
+```
+src/
+├── core/                 # Core language switcher logic
+│   └── language-switcher.ts
+├── types/               # TypeScript type definitions
+│   └── types.ts
+├── utils/               # Utility functions
+│   └── utils.ts
+├── hooks/               # React hooks
+│   └── useLanguage.ts
+├── components/          # React components
+│   └── components.tsx
+├── adapters/            # Framework adapters (Next.js, etc.)
+│   └── index.ts
+└── index.ts             # Main entry point
+
+examples/
+└── index.html           # Unified examples (React, Next.js, Vanilla)
+
+tests/                   # Test files
+dist/                    # Build output
+```
 
 ## 🧪 Testing
 
@@ -286,14 +305,6 @@ npm login
 npm publish
 ```
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -301,14 +312,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Author
 
 **Sushant R. Dangal** - [GitHub](https://github.com/srdarkseer)
-
-## 🙏 Acknowledgments
-
-- Inspired by modern i18n solutions like Weglot
-- Built with TypeScript for type safety
-- Comprehensive RTL language support
-- React and Next.js ecosystem integration
-
----
-
-**Made with ❤️ for the global developer community**
