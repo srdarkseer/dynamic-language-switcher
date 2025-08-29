@@ -1,5 +1,5 @@
-import { LanguageSwitcher } from '../language-switcher';
-import { TranslationData, LanguageSwitcherOptions } from '../types';
+import { LanguageSwitcher } from '../core/language-switcher';
+import { TranslationData, LanguageSwitcherOptions } from '../types/types';
 
 // Type definitions for Next.js contexts
 interface GetServerSidePropsContext {
@@ -132,7 +132,6 @@ export function createLocalizedPage(
   languages: string[]
 ) {
   return async function localizedGetStaticProps(context: GetStaticPropsContext) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const props = await getStaticProps(context);
     
     // Add language information to props
@@ -159,7 +158,7 @@ export function useNextJSLanguage() {
     defaultLanguage: 'en',
     changeLanguage: (newLocale: string) => {
       // Mock implementation - will be overridden in actual Next.js usage
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // Parameter is intentionally unused in mock implementation
       void newLocale;
     },
     router: null,

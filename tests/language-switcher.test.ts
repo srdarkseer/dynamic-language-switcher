@@ -1,5 +1,5 @@
-import { LanguageSwitcher } from '../language-switcher';
-import { LanguageConfig, TranslationData } from '../types';
+import { LanguageSwitcher } from '../src/core/language-switcher';
+import { LanguageConfig, TranslationData } from '../src/types/types';
 
 describe('LanguageSwitcher', () => {
   let languageSwitcher: LanguageSwitcher;

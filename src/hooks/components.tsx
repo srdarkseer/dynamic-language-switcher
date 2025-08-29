@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { useLanguage, useTranslations } from './useLanguage';
-import { TranslationData } from '../types';
+import { TranslationData } from '../types/types';
 
 // Language Switcher Component
 export interface LanguageSwitcherProps {
@@ -36,7 +36,7 @@ export function LanguageSwitcher({
         className={`language-selector ${sizeClasses[size]} ${className}`}
         dir={direction}
       >
-        {availableLanguages.map((lang) => (
+        {availableLanguages.map((lang: any) => (
           <option key={lang.code} value={lang.code}>
             {showFlags && lang.flag} {showNames && lang.name} {showCodes && `(${lang.code})`}
           </option>
@@ -49,8 +49,8 @@ export function LanguageSwitcher({
     return (
       <div className={`language-dropdown ${className}`} dir={direction}>
         <button className={`dropdown-trigger ${sizeClasses[size]}`}>
-          {showFlags && availableLanguages.find(l => l.code === currentLanguage)?.flag}
-          {showNames && availableLanguages.find(l => l.code === currentLanguage)?.name}
+          {showFlags && availableLanguages.find((l: any) => l.code === currentLanguage)?.flag}
+          {showNames && availableLanguages.find((l: any) => l.code === currentLanguage)?.name}
           {showCodes && ` (${currentLanguage})`}
         </button>
         <div className="dropdown-menu">
@@ -71,7 +71,7 @@ export function LanguageSwitcher({
   // Buttons variant
   return (
     <div className={`language-buttons ${className}`} dir={direction}>
-      {availableLanguages.map((lang) => (
+      {availableLanguages.map((lang: any) => (
         <button
           key={lang.code}
           onClick={() => switchLanguage(lang.code)}

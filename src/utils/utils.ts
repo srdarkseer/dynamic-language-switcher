@@ -1,4 +1,4 @@
-import { LanguageConfig } from './types';
+import { LanguageConfig } from '../types/types';
 
 /**
  * Get browser's preferred language

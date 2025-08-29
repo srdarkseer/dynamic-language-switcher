@@ -5,11 +5,12 @@ module.exports = {
   ],
   plugins: ['@typescript-eslint'],
   parserOptions: {
-    ecmaVersion: 2020,
+    ecmaVersion: 2018,
     sourceType: 'module',
   },
   rules: {
-    'no-unused-vars': 'error',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'error',
     'no-console': 'warn',
   },
   env: {
@@ -19,8 +20,9 @@ module.exports = {
     jest: true
   },
   ignorePatterns: [
-    'src/__tests__/**/*',
+    'tests/**/*',
     'dist/**/*',
-    'examples/**/*'
+    'examples/**/*',
+    'node_modules/**/*'
   ]
 }; 

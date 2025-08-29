@@ -4,7 +4,7 @@ import {
   LanguageConfig,
   TranslationData,
   InterpolationFunction
-} from './types';
+} from '../types/types';
 
 export class LanguageSwitcher implements LanguageSwitcherInstance {
   public currentLanguage: string;

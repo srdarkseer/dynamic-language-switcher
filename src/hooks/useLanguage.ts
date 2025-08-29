@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { LanguageSwitcher } from '../language-switcher';
-import { LanguageSwitcherOptions } from '../types';
+import { LanguageSwitcher } from '../core/language-switcher';
+import { LanguageSwitcherOptions } from '../types/types';
 
 // Global language switcher instance
 let globalLanguageSwitcher: LanguageSwitcher | null = null;

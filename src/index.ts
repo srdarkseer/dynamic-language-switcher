@@ -1,33 +1,22 @@
-import { LanguageSwitcher } from './language-switcher';
-import type {
-  LanguageSwitcherOptions,
-  LanguageSwitcherInstance,
-  LanguageConfig,
-  TranslationData,
-  InterpolationFunction
-} from './types';
+// Core exports
+export { LanguageSwitcher } from './core/language-switcher';
+export type { 
+  TranslationData, 
+  LanguageConfig, 
+  LanguageSwitcherOptions, 
+  LanguageSwitcherInstance, 
+  InterpolationFunction 
+} from './types/types';
 
-export { LanguageSwitcher } from './language-switcher';
-export * from './utils';
-export type {
-  LanguageSwitcherOptions,
-  LanguageSwitcherInstance,
-  LanguageConfig,
-  TranslationData,
-  InterpolationFunction
-} from './types';
+// Utility exports
+export * from './utils/utils';
 
-// React exports
-export * from './react/useLanguage';
-export * from './react/components';
+// React hooks and components
+export * from './hooks/useLanguage';
+export * from './hooks/components';
 
-// Next.js exports
-export * from './nextjs';
+// Next.js adapters
+export * from './adapters';
 
-// Convenience function to create a language switcher instance
-export function createLanguageSwitcher(options: LanguageSwitcherOptions): LanguageSwitcher {
-  return new LanguageSwitcher(options);
-}
-
-// Default export
-export default LanguageSwitcher; 
+// Re-export types for convenience
+export * from './types/types'; 
