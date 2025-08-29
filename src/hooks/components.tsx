@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { useLanguage, useTranslations } from './useLanguage';
 import { TranslationData } from '../types/types';
 
@@ -20,20 +20,29 @@ export function LanguageSwitcher({
   size = 'md',
   variant = 'select'
 }: LanguageSwitcherProps) {
-  const { currentLanguage, availableLanguages, switchLanguage, isRTL, direction } = useLanguage();
+  const { currentLanguage, availableLanguages, switchLanguage, direction } = useLanguage();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const sizeClasses = {
-    sm: 'text-sm px-2 py-1',
-    md: 'text-base px-3 py-2',
-    lg: 'text-lg px-4 py-3'
+    sm: 'text-xs px-2 py-1',
+    md: 'text-sm px-3 py-2',
+    lg: 'text-base px-4 py-3'
   };
 
+  const handleLanguageChange = async (language: string) => {
+    await switchLanguage(language);
+    if (variant === 'dropdown') {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  // Select variant
   if (variant === 'select') {
     return (
       <select
-        value={currentLanguage}
-        onChange={(e) => switchLanguage(e.target.value)}
         className={`language-selector ${sizeClasses[size]} ${className}`}
+        value={currentLanguage}
+        onChange={(e) => handleLanguageChange(e.target.value)}
         dir={direction}
       >
         {availableLanguages.map((lang: any) => (
@@ -45,25 +54,42 @@ export function LanguageSwitcher({
     );
   }
 
+  // Dropdown variant
   if (variant === 'dropdown') {
     return (
       <div className={`language-dropdown ${className}`} dir={direction}>
-        <button className={`dropdown-trigger ${sizeClasses[size]}`}>
+        <button 
+          className={`dropdown-trigger ${sizeClasses[size]}`}
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          aria-expanded={isDropdownOpen}
+          aria-haspopup="true"
+        >
           {showFlags && availableLanguages.find((l: any) => l.code === currentLanguage)?.flag}
           {showNames && availableLanguages.find((l: any) => l.code === currentLanguage)?.name}
           {showCodes && ` (${currentLanguage})`}
+          <svg 
+            className={`ml-2 h-4 w-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
         </button>
-        <div className="dropdown-menu">
-          {availableLanguages.map((lang) => (
-            <button
-              key={lang.code}
-              onClick={() => switchLanguage(lang.code)}
-              className={`dropdown-item ${lang.code === currentLanguage ? 'active' : ''}`}
-            >
-              {showFlags && lang.flag} {showNames && lang.name} {showCodes && `(${lang.code})`}
-            </button>
-          ))}
-        </div>
+        
+        {isDropdownOpen && (
+          <div className="dropdown-menu">
+            {availableLanguages.map((lang: any) => (
+              <button
+                key={lang.code}
+                className={`dropdown-item ${lang.code === currentLanguage ? 'active' : ''}`}
+                onClick={() => handleLanguageChange(lang.code)}
+              >
+                {showFlags && lang.flag} {showNames && lang.name} {showCodes && `(${lang.code})`}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     );
   }
@@ -74,7 +100,7 @@ export function LanguageSwitcher({
       {availableLanguages.map((lang: any) => (
         <button
           key={lang.code}
-          onClick={() => switchLanguage(lang.code)}
+          onClick={() => handleLanguageChange(lang.code)}
           className={`language-button ${sizeClasses[size]} ${
             lang.code === currentLanguage ? 'active' : ''
           }`}
@@ -149,7 +175,7 @@ export function LanguageProvider({ children, options, translations }: LanguagePr
   }, [languageSwitcher, translations]);
 
   if (!isReady) {
-    return <div>Loading...</div>;
+    return <div className="flex items-center justify-center p-8">Loading...</div>;
   }
 
   return <>{children}</>;
