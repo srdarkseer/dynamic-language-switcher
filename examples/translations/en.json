@@ -1,0 +1,48 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "hello": "Hello",
+    "goodbye": "Goodbye",
+    "yes": "Yes",
+    "no": "No",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "settings": "Settings",
+    "profile": "Profile"
+  },
+  "forms": {
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phone": "Phone",
+    "address": "Address",
+    "city": "City",
+    "country": "Country",
+    "submit": "Submit",
+    "reset": "Reset"
+  },
+  "messages": {
+    "welcomeMessage": "Welcome to our application, {{name}}!",
+    "itemsCount": "You have {{count}} items",
+    "lastLogin": "Last login: {{date}}",
+    "price": "Price: {{currency}}{{amount}}"
+  },
+  "errors": {
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "passwordMismatch": "Passwords do not match",
+    "minLength": "Minimum length is {{min}} characters"
+  }
+} 

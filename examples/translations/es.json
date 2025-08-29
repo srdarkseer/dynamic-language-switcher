@@ -1,0 +1,48 @@
+{
+  "common": {
+    "welcome": "Bienvenido",
+    "hello": "Hola",
+    "goodbye": "Adiós",
+    "yes": "Sí",
+    "no": "No",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "settings": "Configuración",
+    "profile": "Perfil"
+  },
+  "forms": {
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "phone": "Teléfono",
+    "address": "Dirección",
+    "city": "Ciudad",
+    "country": "País",
+    "submit": "Enviar",
+    "reset": "Restablecer"
+  },
+  "messages": {
+    "welcomeMessage": "¡Bienvenido a nuestra aplicación, {{name}}!",
+    "itemsCount": "Tienes {{count}} elementos",
+    "lastLogin": "Último acceso: {{date}}",
+    "price": "Precio: {{currency}}{{amount}}"
+  },
+  "errors": {
+    "required": "Este campo es obligatorio",
+    "invalidEmail": "Por favor ingrese una dirección de correo válida",
+    "passwordMismatch": "Las contraseñas no coinciden",
+    "minLength": "La longitud mínima es {{min}} caracteres"
+  }
+} 

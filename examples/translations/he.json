@@ -1,0 +1,48 @@
+{
+  "common": {
+    "welcome": "ברוכים הבאים",
+    "hello": "שלום",
+    "goodbye": "להתראות",
+    "yes": "כן",
+    "no": "לא",
+    "cancel": "ביטול",
+    "save": "שמור",
+    "delete": "מחק",
+    "edit": "ערוך",
+    "loading": "טוען...",
+    "error": "שגיאה",
+    "success": "הצלחה"
+  },
+  "navigation": {
+    "home": "בית",
+    "about": "אודות",
+    "contact": "צור קשר",
+    "settings": "הגדרות",
+    "profile": "פרופיל"
+  },
+  "forms": {
+    "email": "אימייל",
+    "password": "סיסמה",
+    "confirmPassword": "אישור סיסמה",
+    "firstName": "שם פרטי",
+    "lastName": "שם משפחה",
+    "phone": "טלפון",
+    "address": "כתובת",
+    "city": "עיר",
+    "country": "מדינה",
+    "submit": "שלח",
+    "reset": "אפס"
+  },
+  "messages": {
+    "welcomeMessage": "ברוכים הבאים לאפליקציה שלנו, {{name}}!",
+    "itemsCount": "יש לך {{count}} פריטים",
+    "lastLogin": "התחברות אחרונה: {{date}}",
+    "price": "מחיר: {{currency}}{{amount}}"
+  },
+  "errors": {
+    "required": "שדה זה הוא חובה",
+    "invalidEmail": "אנא הכנס כתובת אימייל תקינה",
+    "passwordMismatch": "הסיסמאות אינן תואמות",
+    "minLength": "אורך מינימלי הוא {{min}} תווים"
+  }
+} 

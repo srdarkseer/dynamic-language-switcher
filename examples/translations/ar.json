@@ -1,0 +1,48 @@
+{
+  "common": {
+    "welcome": "مرحباً بكم",
+    "hello": "مرحباً",
+    "goodbye": "مع السلامة",
+    "yes": "نعم",
+    "no": "لا",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجح"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "about": "حول",
+    "contact": "اتصل بنا",
+    "settings": "الإعدادات",
+    "profile": "الملف الشخصي"
+  },
+  "forms": {
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "phone": "الهاتف",
+    "address": "العنوان",
+    "city": "المدينة",
+    "country": "البلد",
+    "submit": "إرسال",
+    "reset": "إعادة تعيين"
+  },
+  "messages": {
+    "welcomeMessage": "مرحباً بكم في تطبيقنا، {{name}}!",
+    "itemsCount": "لديك {{count}} عناصر",
+    "lastLogin": "آخر تسجيل دخول: {{date}}",
+    "price": "السعر: {{currency}}{{amount}}"
+  },
+  "errors": {
+    "required": "هذا الحقل مطلوب",
+    "invalidEmail": "يرجى إدخال عنوان بريد إلكتروني صحيح",
+    "passwordMismatch": "كلمات المرور غير متطابقة",
+    "minLength": "الحد الأدنى للطول هو {{min}} أحرف"
+  }
+} 
