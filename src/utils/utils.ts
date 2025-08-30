@@ -1,5 +1,10 @@
 import { LanguageConfig } from '../types/types';
 
+// Export new utilities
+export { ContentDetector } from './content-detector';
+export { TranslationService } from './translation-service';
+export * from './env-loader';
+
 /**
  * Get browser's preferred language
  */

@@ -14,8 +14,60 @@ export interface LanguageSwitcherOptions {
   fallbackLanguage?: string;
   persistLanguage?: boolean;
   storageKey?: string;
-  onLanguageChange?: (language: string) => void;
+  onLanguageChange?: (_language: string) => void;
   debug?: boolean;
+  // New options for Weglot-like functionality
+  autoTranslate?: boolean;
+  translationApi?: TranslationApiConfig;
+  contentSelectors?: string[];
+  excludeSelectors?: string[];
+  preserveOriginalText?: boolean;
+}
+
+export interface TranslationApiConfig {
+  provider: 'deepl' | 'google-cloud' | 'custom';
+  apiKey?: string;
+  endpoint?: string;
+  region?: string;
+  model?: string;
+  batchSize?: number;
+  rateLimit?: number;
+}
+
+export interface DetectedContent {
+  element: HTMLElement;
+  originalText: string;
+  translatedText?: string;
+  language: string;
+  isTranslated: boolean;
+  timestamp: number;
+}
+
+export interface TranslationRequest {
+  text: string;
+  fromLanguage: string;
+  toLanguage: string;
+  context?: string;
+  element?: HTMLElement;
+}
+
+export interface TranslationResponse {
+  translatedText: string;
+  confidence?: number;
+  detectedLanguage?: string;
+  alternatives?: string[];
+}
+
+export interface ContentDetector {
+  detect(): DetectedContent[];
+  watch(_callback: (_content: DetectedContent[]) => void): void;
+  unwatch(): void;
+}
+
+export interface TranslationService {
+  translate(_request: TranslationRequest): Promise<TranslationResponse>;
+  translateBatch(_requests: TranslationRequest[]): Promise<TranslationResponse[]>;
+  detectLanguage(_text: string): Promise<string>;
 }
 
 export interface LanguageSwitcherInstance {
@@ -23,13 +75,23 @@ export interface LanguageSwitcherInstance {
   availableLanguages: LanguageConfig[];
   translations: Record<string, TranslationData>;
   
-  setLanguage(language: string): Promise<void>;
-  getText(key: string, params?: Record<string, string | number>): string;
-  addLanguage(language: string, config: LanguageConfig): void;
-  addTranslations(language: string, translations: TranslationData): void;
-  removeLanguage(language: string): void;
+  // Original methods
+  setLanguage(_language: string): Promise<void>;
+  getText(_key: string, _params?: Record<string, string | number>): string;
+  addLanguage(_language: string, _config: LanguageConfig): void;
+  addTranslations(_language: string, _translations: TranslationData): void;
+  removeLanguage(_language: string): void;
   isRTL(): boolean;
-  getLanguageConfig(language: string): LanguageConfig | undefined;
+  getLanguageConfig(_language: string): LanguageConfig | undefined;
+  
+  // New Weglot-like methods
+  startAutoTranslation(): void;
+  stopAutoTranslation(): void;
+  translatePage(_targetLanguage?: string): Promise<void>;
+  translateElement(_element: HTMLElement, _targetLanguage?: string): Promise<void>;
+  restoreOriginalText(): void;
+  getDetectedContent(): DetectedContent[];
+  setTranslationApi(_config: TranslationApiConfig): void;
 }
 
-export type InterpolationFunction = (key: string, params: Record<string, string | number>) => string; 
+export type InterpolationFunction = (_key: string, _params: Record<string, string | number>) => string; 

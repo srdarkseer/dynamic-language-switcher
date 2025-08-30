@@ -15,23 +15,23 @@ interface GetStaticPropsContext {
 
 // Next.js server-side language detection
 export function detectLanguageFromRequest(
-  context: GetServerSidePropsContext | GetStaticPropsContext
+  _context: GetServerSidePropsContext | GetStaticPropsContext
 ): string {
   // Check for language in query params first
-  const { lang } = context.params || {};
+  const { lang } = _context.params || {};
   if (lang && typeof lang === 'string') {
     return lang;
   }
 
   // Check for language in query string
-  const { locale } = context.query || {};
+  const { locale } = _context.query || {};
   if (locale && typeof locale === 'string') {
     return locale;
   }
 
   // Check for Accept-Language header
-  if ('req' in context && context.req) {
-          const acceptLanguage = context.req.headers['accept-language'];
+  if ('req' in _context && _context.req) {
+          const acceptLanguage = _context.req.headers['accept-language'];
       if (acceptLanguage) {
         const languages = acceptLanguage.split(',').map((lang: string) => lang.split(';')[0].trim());
         return languages[0] || 'en';
@@ -128,14 +128,14 @@ export function createLanguageMiddleware(
 
 // Utility for creating Next.js pages with language support
 export function createLocalizedPage(
-  getStaticProps: (context: GetStaticPropsContext) => Promise<any>,
+  getStaticProps: (_context: GetStaticPropsContext) => Promise<any>,
   languages: string[]
 ) {
-  return async function localizedGetStaticProps(context: GetStaticPropsContext) {
-    const props = await getStaticProps(context);
+  return async function localizedGetStaticProps(_context: GetStaticPropsContext) {
+    const props = await getStaticProps(_context);
     
     // Add language information to props
-    const language = detectLanguageFromRequest(context);
+    const language = detectLanguageFromRequest(_context);
     
     return {
       ...props,

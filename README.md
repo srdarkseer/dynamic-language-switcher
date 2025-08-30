@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-4.9.5-blue.svg)](https://www.typescriptlang.org/)
 
-A lightweight, flexible, and production-ready package for dynamic language switching in JavaScript/TypeScript applications with full React & Next.js support, comprehensive RTL language support, and Chinese language variants.
+A **Weglot-like** automatic translation package for JavaScript/TypeScript applications that **automatically detects and translates content without requiring manual JSON configuration**. Perfect for dynamic websites, SPAs, and applications where content changes frequently.
 
 **📦 Available on npm:** [dynamic-language-switcher](https://www.npmjs.com/package/dynamic-language-switcher)
 
@@ -12,16 +12,16 @@ A lightweight, flexible, and production-ready package for dynamic language switc
 
 ```bash
 npm install dynamic-language-switcher
-# or
-yarn add dynamic-language-switcher
-# or
-pnpm add dynamic-language-switcher
 ```
 
 ## ✨ Features
 
-- 🌍 **Multi-language Support**: 20+ languages including English, Spanish, French, German, Italian, Portuguese, Russian, Japanese, Korean, Arabic, Hebrew, Persian, Urdu, Hindi, Bengali, Thai, Vietnamese, Turkish, Dutch, and more
-- 🇨🇳 **Chinese Language Support**: Both Simplified (zh-CN) and Traditional (zh-TW) Chinese
+- 🌍 **Automatic Content Detection**: Automatically scans the DOM for translatable content
+- 🔄 **No Manual Configuration**: Works like Weglot - no JSON files or manual setup required
+- 🚀 **Real-time Translation**: Translates content on-demand when switching languages
+- 📱 **Dynamic Content Monitoring**: Automatically detects new content added to the page
+- 🌐 **Translation API Integration**: Supports DeepL, Google Cloud Translation (coming soon), and custom APIs
+- 🇨🇳 **Multi-language Support**: 20+ languages including English, Spanish, French, German, Italian, Portuguese, Russian, Japanese, Korean, Arabic, Hebrew, Persian, Urdu, Hindi, Bengali, Thai, Vietnamese, Turkish, Dutch, and more
 - 🇳🇵 **Nepali Language Support**: Full Nepali language support with Devanagari script
 - 🔄 **RTL Support**: Full Right-to-Left language support for Arabic, Hebrew, Persian, Urdu, and more
 - ⚛️ **React Integration**: Hooks, components, and context providers for seamless React integration
@@ -38,142 +38,236 @@ pnpm add dynamic-language-switcher
 
 ```bash
 npm install dynamic-language-switcher
-# or
-yarn add dynamic-language-switcher
-# or
-pnpm add dynamic-language-switcher
 ```
 
-### Basic Usage
+### Basic Usage (Weglot-like)
 
 ```typescript
 import { LanguageSwitcher } from "dynamic-language-switcher";
 
-// Initialize
+// Initialize with automatic translation
 const languageSwitcher = new LanguageSwitcher({
   defaultLanguage: "en",
-  fallbackLanguage: "en",
-  persistLanguage: true,
+  autoTranslate: true,
+  translationApi: {
+    provider: "deepl",
+    apiKey: "your-deepl-api-key",
+  },
 });
 
-// Add languages
-languageSwitcher.addLanguage("en", {
-  code: "en",
-  name: "English",
-  flag: "🇺🇸",
-});
+// Start automatic content detection and translation
+languageSwitcher.startAutoTranslation();
 
-languageSwitcher.addLanguage("zh-CN", {
-  code: "zh-CN",
-  name: "简体中文",
-  flag: "🇨🇳",
-});
+// Switch language - content is automatically translated!
+await languageSwitcher.setLanguage("es");
+```
 
-languageSwitcher.addLanguage("np", {
-  code: "np",
-  name: "नेपाली",
-  flag: "🇳🇵",
-});
+### Advanced Configuration
 
-// Add translations
-languageSwitcher.addTranslations("en", {
-  welcome: "Welcome",
-  hello: "Hello, {name}!",
+```typescript
+const languageSwitcher = new LanguageSwitcher({
+  defaultLanguage: "en",
+  autoTranslate: true,
+  preserveOriginalText: true, // Keep original text for restoration
+  contentSelectors: ["h1", "h2", "h3", "p", "span", "div", "a", "button"],
+  excludeSelectors: [
+    "script",
+    "style",
+    "code",
+    "pre",
+    "[data-no-translate]",
+    ".no-translate",
+  ],
+  translationApi: {
+    provider: "deepl",
+    apiKey: "your-deepl-api-key",
+    batchSize: 50,
+    rateLimit: 100,
+  },
 });
+```
 
-languageSwitcher.addTranslations("zh-CN", {
-  welcome: "欢迎",
-  hello: "你好，{name}！",
-});
+## 🔧 How It Works
 
-languageSwitcher.addTranslations("np", {
-  welcome: "स्वागत छ",
-  hello: "नमस्ते, {name}!",
-});
+### 1. **Automatic Content Detection**
 
-// Switch language
+The system automatically scans your page for translatable content using intelligent selectors:
+
+```typescript
+// Automatically detects content in:
+// - Headings (h1, h2, h3, etc.)
+// - Paragraphs and text elements
+// - Buttons and links
+// - Form placeholders
+// - Meta descriptions
+// - And more...
+```
+
+### 2. **Dynamic Content Monitoring**
+
+Watches for new content being added to the page:
+
+```typescript
+// Content added dynamically is automatically detected
+document.body.innerHTML += "<p>New content that will be translated!</p>";
+
+// Content updates are also detected
+element.textContent = "Updated content";
+```
+
+### 3. **Automatic Translation**
+
+Translates content when switching languages:
+
+```typescript
+// Switch to Spanish - all detected content is automatically translated
+await languageSwitcher.setLanguage("es");
+
+// Switch to Chinese - content is translated again
 await languageSwitcher.setLanguage("zh-CN");
-
-// Get translated text
-const text = languageSwitcher.getText("hello", { name: "World" });
-// Output: 你好，World！
 ```
 
-## 📚 Documentation
+### 4. **No Manual Setup Required**
 
-### Core API
+Unlike traditional i18n libraries, you don't need to:
 
-#### LanguageSwitcher Class
+- ❌ Define translation JSON files
+- ❌ Manually mark translatable text
+- ❌ Configure translation keys
+- ❌ Update translation files when content changes
 
-The main class for managing languages and translations.
+## 🌐 Translation API Support
+
+### DeepL (Recommended)
 
 ```typescript
-const languageSwitcher = new LanguageSwitcher(options);
+translationApi: {
+  provider: "deepl",
+  apiKey: "your-deepl-api-key"
+}
 ```
 
-**Options:**
-
-- `defaultLanguage`: Initial language (default: 'en')
-- `fallbackLanguage`: Fallback language for missing translations (default: 'en')
-- `persistLanguage`: Whether to persist language choice (default: false)
-- `storageKey`: Key for localStorage persistence (default: 'language')
-- `debug`: Enable debug logging (default: false)
-
-#### Methods
-
-- `addLanguage(code, config)`: Add a new language
-- `addTranslations(language, translations)`: Add translations for a language
-- `setLanguage(language)`: Switch to a language
-- `getText(key, params)`: Get translated text with parameter interpolation
-- `isRTL()`: Check if current language is RTL
-- `getDocumentDirection()`: Get current document direction
-
-### React Integration
-
-#### Hooks
+### Google Cloud Translation API (Coming Soon)
 
 ```typescript
-import { useLanguage, useTranslation } from "dynamic-language-switcher";
+translationApi: {
+  provider: "google-cloud",
+  apiKey: "your-google-cloud-api-key"
+}
+```
+
+_Note: This will be implemented in a future update_
+
+### Custom API
+
+```typescript
+translationApi: {
+  provider: "custom",
+  endpoint: "https://your-translation-api.com/translate"
+}
+```
+
+## 📚 API Reference
+
+### Core Methods
+
+#### `startAutoTranslation()`
+
+Start automatic content detection and translation.
+
+#### `stopAutoTranslation()`
+
+Stop automatic translation.
+
+#### `translatePage(targetLanguage?)`
+
+Translate the entire page to the specified language.
+
+#### `translateElement(element, targetLanguage?)`
+
+Translate a specific element.
+
+#### `restoreOriginalText()`
+
+Restore all translated content to the original text.
+
+#### `getDetectedContent()`
+
+Get all detected translatable content.
+
+### Content Detection Options
+
+```typescript
+{
+  contentSelectors: [
+    "h1", "h2", "h3", "h4", "h5", "h6",
+    "p", "span", "div", "a", "button", "label",
+    "input[placeholder]", "textarea[placeholder]"
+  ],
+  excludeSelectors: [
+    "script", "style", "code", "pre",
+    "[data-no-translate]", ".no-translate",
+  ]
+}
+```
+
+### Excluding Content from Translation
+
+```html
+<!-- Exclude specific elements -->
+<div data-no-translate>This won't be translated</div>
+<div class="no-translate">This also won't be translated</div>
+
+<!-- Exclude entire sections -->
+<section data-no-translate>
+  <h2>Technical Documentation</h2>
+  <p>This entire section is excluded</p>
+</section>
+```
+
+## ⚛️ React Integration
+
+### Hooks
+
+```typescript
+import { useLanguage } from "dynamic-language-switcher";
 
 function MyComponent() {
-  const { currentLanguage, switchLanguage, t, isRTL } = useLanguage();
+  const { currentLanguage, switchLanguage, isTranslating } = useLanguage();
 
   return (
     <div>
-      <h1>{t("welcome")}</h1>
-      <button onClick={() => switchLanguage("zh-CN")}>Switch to Chinese</button>
-      <button onClick={() => switchLanguage("np")}>Switch to Nepali</button>
+      <h1>Welcome to our app</h1>
+      <button onClick={() => switchLanguage("es")}>Switch to Spanish</button>
+      {isTranslating && <p>Translating...</p>}
     </div>
   );
 }
 ```
 
-#### Components
+### Components
 
 ```typescript
-import {
-  LanguageSwitcher,
-  Translation,
-  RTLDirection,
-} from "dynamic-language-switcher";
+import { LanguageSwitcher, RTLDirection } from "dynamic-language-switcher";
 
 function App() {
   return (
     <RTLDirection>
       <header>
-        <h1>
-          <Translation key="app.title" />
-        </h1>
+        <h1>My App</h1>
         <LanguageSwitcher variant="dropdown" />
       </header>
+      <main>
+        <p>This content will be automatically translated</p>
+      </main>
     </RTLDirection>
   );
 }
 ```
 
-### Next.js Integration
+## 🚀 Next.js Integration
 
-#### Server-side Rendering
+### Server-side Rendering
 
 ```typescript
 import { GetServerSideProps } from "next";
@@ -191,7 +285,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 ```
 
-#### Static Generation
+### Static Generation
 
 ```typescript
 import { GetStaticProps } from "next";
@@ -199,7 +293,6 @@ import { createLocalizedPage } from "dynamic-language-switcher";
 
 export const getStaticProps = createLocalizedPage(
   async (context) => {
-    // Your existing getStaticProps logic
     return {
       props: {
         /* ... */
@@ -214,43 +307,19 @@ export const getStaticProps = createLocalizedPage(
 
 ### Western Languages
 
-- English (en)
-- Spanish (es)
-- French (fr)
-- German (de)
-- Italian (it)
-- Portuguese (pt)
-- Russian (ru)
-- Dutch (nl)
+- English (en), Spanish (es), French (fr), German (de)
+- Italian (it), Portuguese (pt), Russian (ru), Dutch (nl)
 
 ### Asian Languages
 
-- Japanese (ja)
-- Korean (ko)
-- Simplified Chinese (zh-CN)
-- Traditional Chinese (zh-TW)
-- Nepali (np)
-- Hindi (hi)
-- Bengali (bn)
-- Thai (th)
-- Vietnamese (vi)
-- Turkish (tr)
+- Japanese (ja), Korean (ko), Chinese (zh-CN/zh-TW)
+- Nepali (np), Hindi (hi), Bengali (bn), Thai (th)
+- Vietnamese (vi), Turkish (tr)
 
 ### RTL Languages
 
-- Arabic (ar)
-- Hebrew (he)
-- Persian (fa)
-- Urdu (ur)
-- Pashto (ps)
-- Sindhi (sd)
-- Yiddish (yi)
-- Kurdish (ku)
-- Divehi (dv)
-- Kashmiri (ks)
-- Punjabi (pa)
-- Tajik (tg)
-- Uzbek (uz)
+- Arabic (ar), Hebrew (he), Persian (fa), Urdu (ur)
+- And many more...
 
 ## 🏗️ Project Structure
 
@@ -261,7 +330,10 @@ src/
 ├── types/               # TypeScript type definitions
 │   └── types.ts
 ├── utils/               # Utility functions
-│   └── utils.ts
+│   ├── utils.ts
+│   ├── content-detector.ts    # Automatic content detection
+│   ├── translation-service.ts # Translation API integration
+│   └── env-loader.ts          # Environment configuration
 ├── hooks/               # React hooks
 │   └── useLanguage.ts
 ├── components/          # React components
@@ -269,12 +341,6 @@ src/
 ├── adapters/            # Framework adapters (Next.js, etc.)
 │   └── index.ts
 └── index.ts             # Main entry point
-
-examples/
-└── index.html           # Unified examples (React, Next.js, Vanilla)
-
-tests/                   # Test files
-dist/                    # Build output
 ```
 
 ## 🧪 Testing
@@ -326,3 +392,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Author
 
 **Sushant R. Dangal** - [GitHub](https://github.com/srdarkseer)
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.

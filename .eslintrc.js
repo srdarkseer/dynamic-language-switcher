@@ -1,28 +1,22 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   extends: [
-    'eslint:recommended'
+    'eslint:recommended',
   ],
   plugins: ['@typescript-eslint'],
-  parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module',
-  },
   rules: {
-    'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': 'error',
-    'no-console': 'warn',
+    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    'no-console': 'off', // Allow console statements for development
   },
   env: {
-    node: true,
-    es6: true,
     browser: true,
-    jest: true
+    es2021: true,
+    node: true,
   },
   ignorePatterns: [
-    'tests/**/*',
-    'dist/**/*',
-    'examples/**/*',
-    'node_modules/**/*'
+    'dist/',
+    'node_modules/',
+    'coverage/'
   ]
 }; 

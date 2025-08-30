@@ -14,4 +14,8 @@ export {
 } from './components/components';
 
 // Next.js adapters
-export * from './adapters'; 
+export * from './adapters';
+
+// Weglot-like functionality
+export { ContentDetector } from './utils/content-detector';
+export { TranslationService } from './utils/translation-service'; 
